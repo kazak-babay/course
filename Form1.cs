@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using System.Linq;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -13,9 +12,7 @@ namespace MyWinFormApp
         public Form1()
         {
             InitializeComponent();
-            // Указываем путь к файлу с стоп-словами
-            string stopWordsFilePath = "stopwords.txt";
-            extractor = new KeywordExtractor(stopWordsFilePath);
+            extractor = new KeywordExtractor("stopwords.txt");
         }
 
         private void buttonLoadFile_Click(object sender, EventArgs e)
@@ -35,6 +32,7 @@ namespace MyWinFormApp
             using OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Multiselect = true;
             openFileDialog.Filter = "Text files (*.txt)|*.txt";
+
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 var documents = new Dictionary<string, string>();
@@ -44,7 +42,8 @@ namespace MyWinFormApp
                     documents.Add(Path.GetFileName(filename), content);
                 }
 
-                var results = extractor.ExtractKeywordsFromDocuments(documents, 10);
+                int topN = (int)numericUpDownTopN.Value;
+                var results = extractor.ExtractKeywordsFromDocuments(documents, topN);
 
                 listBoxResults.Items.Clear();
                 foreach (var doc in results)
@@ -54,7 +53,7 @@ namespace MyWinFormApp
                     {
                         listBoxResults.Items.Add($"  {kvp.Key} — {kvp.Value:F4}");
                     }
-                    listBoxResults.Items.Add(""); // пустая строка между документами
+                    listBoxResults.Items.Add("");
                 }
             }
         }
@@ -62,7 +61,8 @@ namespace MyWinFormApp
         private void buttonAnalyze_Click(object sender, EventArgs e)
         {
             string inputText = richTextBoxInput.Text;
-            var keywords = extractor.ExtractKeywords(inputText);
+            int topN = (int)numericUpDownTopN.Value;
+            var keywords = extractor.ExtractKeywords(inputText, topN);
 
             listBoxResults.Items.Clear();
             foreach (var pair in keywords)

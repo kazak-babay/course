@@ -29,6 +29,8 @@ partial class Form1
 	private System.Windows.Forms.Label labelInput;
 	private System.Windows.Forms.Label labelResults;
 	private System.Windows.Forms.Button buttonLoadMultipleFiles;
+	private System.Windows.Forms.NumericUpDown numericUpDownTopN;
+	private System.Windows.Forms.Label labelTopN;
 
 
 	private void InitializeComponent()
@@ -40,6 +42,8 @@ partial class Form1
 		this.listBoxResults = new System.Windows.Forms.ListBox();
 		this.labelInput = new System.Windows.Forms.Label();
 		this.labelResults = new System.Windows.Forms.Label();
+		this.numericUpDownTopN = new System.Windows.Forms.NumericUpDown();
+		this.labelTopN = new System.Windows.Forms.Label();
 		this.SuspendLayout();
 		// 
 		// labelInput
@@ -72,7 +76,6 @@ partial class Form1
 		this.buttonLoadMultipleFiles.Click += new System.EventHandler(this.buttonLoadMultipleFiles_Click);
 		this.buttonLoadMultipleFiles.Name = "buttonLoadMultipleFiles";
 		this.buttonLoadMultipleFiles.Font = new System.Drawing.Font("Segoe UI", 10);
-		this.Controls.Add(this.buttonLoadMultipleFiles);
 		//
 		// buttonAnalyze
 		// 
@@ -95,6 +98,24 @@ partial class Form1
 		this.listBoxResults.Size = new System.Drawing.Size(1220, 300);
 		this.listBoxResults.Name = "listBoxResults";
 		this.listBoxResults.Font = new System.Drawing.Font("Segoe UI", 10);
+		//
+		// labelTopN
+		//
+		this.labelTopN.AutoSize = true;
+		this.labelTopN.Location = new System.Drawing.Point(940, 190);
+		this.labelTopN.Name = "labelTopN";
+		this.labelTopN.Size = new System.Drawing.Size(180, 15);
+		this.labelTopN.Font = new System.Drawing.Font("Segoe UI", 12);
+		this.labelTopN.Text = "Количество ключевых слов:";
+		// 
+		// numericUpDownTopN
+		// 
+		this.numericUpDownTopN.Location = new System.Drawing.Point(943, 225);
+		this.numericUpDownTopN.Minimum = 1;
+		this.numericUpDownTopN.Maximum = 1000;
+		this.numericUpDownTopN.Value = 20;
+		this.numericUpDownTopN.Name = "numericUpDownTopN";
+		this.numericUpDownTopN.Size = new System.Drawing.Size(60, 23);
 		// 
 		// Form1
 		// 
@@ -102,12 +123,16 @@ partial class Form1
 		this.Controls.Add(this.labelInput);
 		this.Controls.Add(this.richTextBoxInput);
 		this.Controls.Add(this.buttonLoadFile);
+		this.Controls.Add(this.buttonLoadMultipleFiles);
 		this.Controls.Add(this.buttonAnalyze);
 		this.Controls.Add(this.labelResults);
 		this.Controls.Add(this.listBoxResults);
+		this.Controls.Add(this.labelTopN);
+		this.Controls.Add(this.numericUpDownTopN);
 
 		this.Name = "Form1";
 		this.Text = "Анализ ключевых слов в тексте";
+
 		this.ResumeLayout(false);
 		this.PerformLayout();
 	}
